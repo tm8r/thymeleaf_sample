@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>removing template<small> 要素の非表示</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>特定要素の非表示</h3>
+					<ul>
+					    <li th:each="user : ${userList}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${user.name}">name1</span></li>
+					    <li th:remove="all"><img src="no_image.jpg"/>name2</li>
+					    <li th:remove="all"><img src="no_image.jpg"/>name3</li>
+					</ul>
+					<div class="well well-small">
+						<p>th:removeを非表示にしたい要素に対して指定する。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>上の例を簡略化</h3>
+					<ul th:remove="all-but-first">
+					    <li th:each="user : ${userList}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${user.name}">name1</span></li>
+					    <li><img src="no_image.jpg"/>name2</li>
+					    <li><img src="no_image.jpg"/>name3</li>
+					</ul>
+					<div class="well well-small">
+						<p>th:removeにall-but-firstを指定することで、子要素の最初以外の要素を非表示にする。</p>
+				    </div>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

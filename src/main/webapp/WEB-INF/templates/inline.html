@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>text inlining<small> インライン文法</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>インライン文法 - text</h3>
+					<p th:inline="text">text:[[${text}]]</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>インライン文法 - javascript(文字列)</h3>
+					<script th:inline="javascript">
+						var username = /*[[${user.name}]]*/ null;
+					</script>
+				</section>
+				<hr/>
+				<section>
+					<h3>インライン文法 - javascript(JavaBeans)</h3>
+					<script th:inline="javascript">
+						var user = /*[[${user}]]*/ null;
+					</script>
+					<div class="well well-small">
+						<p>対象の型を判断して自動的に変換が実行される。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>インライン文法 - javascript(List)</h3>
+					<script th:inline="javascript">
+						var userList = /*[[${userList}]]*/ null;
+					</script>
+					<div class="well well-small">
+						<p>JavaBeans同様、Listなども自動的に変換が実行される。</p>
+				    </div>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

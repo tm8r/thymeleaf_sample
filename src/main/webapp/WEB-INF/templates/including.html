@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body th:with="name1='taro',name2='hanako'">
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>including template<small> インクルード</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div th:include="include::menu"></div>
+		<div class="well well-small">
+			<p>th:includeを使用しているため、インクルード先(このファイル)のタグが優先され、インクルード元のclassが消える。</p>
+	    </div>
+		<hr/>
+		<div th:substituteby="include::menu"></div>
+		<div class="well well-small">
+			<p>th:substitutebyを使用しているため、インクルード元のタグが優先され、classも正しくインクルードされる。</p>
+	    </div>
+		<hr/>
+		<span th:include="include::menu"></span>
+		<div class="well well-small">
+			<p>th:includeを使用しているため、インクルード先(このファイル)のタグが優先され、タグがインクルード元のdivではなく、spanになる。</p>
+	    </div>
+		<hr/>
+		<span th:substituteby="include::menu"></span>
+		<div class="well well-small">
+			<p>th:substitutebyを使用しているため、インクルード元のタグが優先される。</p>
+	    </div>
+		<hr/>
+		<div class="row">
+			<div class="span9">
+				<section>
+					<p>インクルードのサンプル</p>
+				</section>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

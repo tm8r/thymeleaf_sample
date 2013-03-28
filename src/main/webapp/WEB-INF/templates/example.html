@@ -1,0 +1,125 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>example<small> 用例</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>変数のデフォルト値を指定する</h3>
+					<p th:text="${str}?: 'default'">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>変数が存在するときとしないときで出力する文字列を切り替える</h3>
+					<p th:text="${str == null}? 'null' : 'not null'">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listに要素が存在する時だけ要素を表示する</h3>
+					<ul th:if="${userList != null and userList.size() != 0}">
+					    <li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listに要素が存在する時だけ要素を表示する</h3>
+					<ul th:if="${userList != null and userList.size() != 0}">
+					    <li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listに要素が存在する時だけ要素を表示する(utilityを用いて簡略化)（</h3>
+					<ul th:if="${not #lists.isEmpty(userList)}">
+					    <li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Mapに要素が存在する時だけ要素を表示する(utilityを用いて簡略化)（</h3>
+					<ul th:if="${not #maps.isEmpty(userMap)}">
+					    <li th:each="key : ${userMap.keySet()}" th:object="${userMap.get(key)}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listのindexを表示する(0始まり)</h3>
+					<ul>
+					    <li th:each="user : ${userList}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${userStat.index + ':' + user.name}">name1</span></li>
+					</ul>
+					<div class="well well-small">
+						<p>「th:each」で指定した変数名の後に「Stat」とつけることで、そのオブジェクトのList内における状態を取得出来る。ここで使用しているのはindex。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listのindexを表示する(1始まり)</h3>
+					<ul>
+					    <li th:each="user : ${userList}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${userStat.count + ':' + user.name}">name1</span></li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listのindexが偶数のときと奇数のときでclass名を変える</h3>
+					<ul>
+					    <li th:each="user : ${userList}" th:class="${userStat.odd? 'odd':'even'}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${user.name}">name1</span></li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Stringの長さが5文字以上のとき5文字以降をカットして三点リーダーを付与する</h3>
+					<p th:switch="${#strings.length(text)} gt 5">
+					    <span th:case="${#bools.isTrue('true')}" th:text="${#strings.substring(text,0,5) + '…'}"></span>
+					    <span th:case="*" th:text="${text}"></span>
+					</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>Stringの長さが5文字以上のとき5文字以降をカットして三点リーダーを付与する(th:if版)</h3>
+					<div th:with="max_length=5">
+					    <p th:if="${#strings.length(text)} gt ${max_length}" th:text="${#strings.substring(text,0,max_length) + '…'}"></p>
+					    <p th:unless="${#strings.length(text)} gt ${max_length}" th:text="${text}"></p>
+					</div>
+				</section>
+				<hr/>
+				<section>
+					<h3>現在時刻を取得する</h3>
+					<p th:text="${#dates.createNow()}">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>フォーマットを指定して現在時刻を取得する</h3>
+					<p th:text="${#dates.format(#dates.createNow(),'yyyy/MM/dd')}">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>リクエストパラメータを取得する</h3>
+					<p th:text="${#httpServletRequest.getParameter('test')}">test param</p>
+					<div class="well well-small">
+						<p>「${#httpServletRequest}」でHttpServletRequestが取得出来る。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>classをもとから付与しておき、特定条件のときだけclassを追加する</h3>
+					<p class="hoge" th:classappend="${user != null}?'piyo'">test</p>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

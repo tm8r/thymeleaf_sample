@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:fragment="head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index - include</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar" th:fragment="menu">
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li class="active">
+					<a href="#">Home</a>
+					</li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

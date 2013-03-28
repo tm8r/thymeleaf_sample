@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>index</h1>
+			<p class="lead">thymeleaf sample</p>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<ul>
+						<li><a th:href="@{/text}">using text - 文字列の出力</a></li>
+						<li><a th:href="@{/iteration}">iteration - ListやMapの出力</a></li>
+						<li><a th:href="@{/removing}">removing template - 要素の非表示</a></li>
+						<li><a th:href="@{/conditional}">conditional expressions - 条件分岐</a></li>
+						<li><a th:href="@{/local}">local variables - ローカル変数</a></li>
+						<li><a th:href="@{/including}">including template - インクルード</a></li>
+						<li><a th:href="@{/inline}">text inlining - インライン文法</a></li>
+						<li><a th:href="@{/dialect}">dialect</a></li>
+						<li><a th:href="@{/example(test='hoge')}">examples - 用例</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

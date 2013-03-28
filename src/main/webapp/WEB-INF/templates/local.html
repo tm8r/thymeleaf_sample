@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body th:with="name1='taro',name2='hanako'">
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>local variables<small> ローカル変数</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>ローカル変数の利用</h3>
+					<div th:with="googleDomain='http://www.google.co.jp/'">
+					    <p th:text="${'domain1:' + googleDomain}">domain1</p>
+					</div>
+					<p th:text="${'domain2:' + googleDomain}">domain2</p>
+					<div class="well well-small">
+						<p>二つ目はth:withの範囲外なのでnullとなる。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>ローカル変数の利用(bodyで宣言)</h3>
+					<p th:text="${'name1:' + name1}">name1</p>
+					<p th:text="${'name2:' + name2}">name2</p>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

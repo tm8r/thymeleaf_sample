@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>iteration<small> ListやMapの出力</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>Listの出力</h3>
+					<ul>
+						<li th:each="user : ${userList}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${user.name}">name</span></li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Listの出力の簡略化</h3>
+					<ul>
+						<li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+				<section>
+					<h3>Mapの出力</h3>
+					<ul>
+						<li th:each="key : ${userMap.keySet()}" th:object="${userMap.get(key)}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+					</ul>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>

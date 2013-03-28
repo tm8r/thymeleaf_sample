@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ameba="http://www.thymeleaf.org" lang="ja">
+<head th:substituteby="include::head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+<script th:inline="javascript">
+/*[- */
+var username = /*[[${userBean}]]*/ null;
+/* -]*/
+</script>
+</head>
+<body th:with="num1=1,num2=2">
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>index</h1>
+			<p class="lead">thymeleaf sample</p>
+		</div>
+	</header>
+	<div class="container">
+		<div th:substituteby="include::menu"></div>
+		<div class="row">
+			<div class="span9">
+				<section id="test1">
+					<ul>
+						<li>using text - 文字列の出力</li>
+						<li>iteration - ListやMapの出力</li>
+						<li>removing template - 要素の非表示</li>
+						<li>conditional expressions - 条件分岐</li>
+						<li>local variables - ローカル変数</li>
+						<li>including template - インクルード</li>
+						<li>text inlining - インライン文法</li>
+						<li>utility</li>
+						<li>dialect</li>
+						<li>examples - 用例</li>
+					</ul>
+					<p class="hoge" th:classappend="'piyo'">name</p>
+					<p th:text="${#httpServletRequest.getParameter('test_param')}">domain1</p>
+					<div th:with="amebloDomain='http://ameblo.jp'">
+						<p th:text="${'domain1:'+amebloDomain}">domain1</p>
+					</div>
+					<p th:text="${'domain2:'+amebloDomain}">domain2</p>
+					<div th:with="max_length=5">
+						<p th:if="${#strings.length(str2)} gt ${max_length}" th:text="${#strings.substring(str2,0,max_length) + '…'}"></p>
+						<p th:unless="${#strings.length(str2)} gt ${max_length}" th:text="${str2}"></p>
+					</div>
+					<p ameba:echoua="${#httpServletRequest}">useragent</p>
+					<p th:text="${#dates.format(#dates.createNow(),'yyyy/MM/dd')}">test</p>
+					<p th:text="'num1:' + ${num1} + ', num2:' + ${num2}">test</p>
+					<p th:text="${str1}?: 'default'">test</p>
+					<span th:text="${str1 == null}? 'null' : 'not null'">hoge</span>
+					<p th:text="${str}">test</p>
+					<p th:inline="text"><span>str!:[[${str}]]</span></p>
+					<p>bool:<span th:text="${#bools.listIsTrue(userList)}">bool</span></p>
+					<p th:class="${userBean.name}">name</p>
+					<p>testlink1 <a href="test">link</a></p>
+					<p>testlink1 <a th:href="@{/test}">link</a></p>
+					<p th:text="${#strings.length(str)}">num</p>
+					<p th:if="${userBean.sex} == 0">male</p>
+					<p th:if="${userBean.sex} == 1">female</p>
+					<p th:unless="${userBean.sex} == 1">male</p>
+					<p th:if="${userBean.sex} != 0 and ${userBean.sex} != 1">other</p>
+					<p th:if="${userBean != null} and ${userBean.sex} == 0">multi:male</p>
+					<div th:switch="${userBean.sex}">
+					<p th:case="0">switch:male</p>
+					<p th:case="1">switch:female</p>
+					<p th:case="*">switch:*</p>
+					</div>
+				</section>
+				<section id="test2">
+				<p>list1</p>
+				<ul>
+					<li th:each="user : ${userList}" th:class="${userStat.odd? 'odd':'even'}"><img src="no_image.jpg" th:src="${user.imageUrl}"/><span th:text="${userStat.odd + ':' + user.name}">name1</span></li>
+					<li th:remove="all"><img src="no_image.jpg"/>name2</li>
+					<li th:remove="all"><img src="no_image.jpg"/>name3</li>
+				</ul>
+				<p>list2</p>
+				<ul th:unless="${#lists.isEmpty(userList)}">
+					<li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+				</ul>
+				<p>list3</p>
+				<ul th:if="${userList != null and userList.size() != 0}">
+					<li th:each="user : ${userList}" th:object="${user}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+				</ul>
+				<p>map1</p>
+				<ul th:if="${not #maps.isEmpty(userMap)}">
+					<li th:each="key : ${userMap.keySet()}" th:object="${userMap.get(key)}" th:inline="text"><img src="no_image.jpg" th:src="*{imageUrl}"/>[[*{name}]]</li>
+				</ul>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

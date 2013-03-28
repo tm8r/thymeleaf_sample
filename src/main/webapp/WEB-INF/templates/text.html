@@ -1,0 +1,80 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+	<header class="jumbotron subhead" id="overview">
+		<div class="container">
+			<h1>using text<small> 文字列の出力</small></h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<section>
+					<h3>通常の文字列</h3>
+					<p th:text="${text}">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>存在しない変数</h3>
+					<p th:text="${text_dummy}">test</p>
+					<div class="well well-small">
+						<p>存在しない変数を入力してもエラーにはならず、タグだけが表示される。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>文字列の結合</h3>
+					<p th:text="${'text:' + text}">test</p>
+				</section>
+				<hr/>
+				<section>
+					<h3>エスケープされていない文字列</h3>
+					<p th:text="${unescapedText}">test</p>
+					<div class="well well-small">
+						<p>th:textはデフォルトでエスケープしてくれる。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>エスケープされている文字列をそのまま表示</h3>
+					<p th:utext="${escapedText}">test</p>
+					<div class="well well-small">
+						<p>th:utextを使用することでエスケープせずに表示する。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>エスケープされた文字列</h3>
+					<p th:text="${escapedText}">test</p>
+					<div class="well well-small">
+						<p>既にエスケープされている文字列に対してth:textを指定しても二重エスケープはされない。</p>
+				    </div>
+				</section>
+				<hr/>
+				<section>
+					<h3>JavaBeansの表示</h3>
+					<p th:text="${user.name}">name</p>
+					<img th:src="${user.imageUrl}" src="no_image.jpg"/>
+				</section>
+				<hr/>
+				<section>
+					<h3>JavaBeansの表示を簡略化</h3>
+					<div th:object="${user}">
+						<p th:text="*{name}">name</p>
+						<img th:src="*{imageUrl}" src="no_image.jpg"/>
+					</div>
+				</section>
+				<hr/>
+			</div>
+		</div>
+		<p><a th:href="@{/}">&gt; return index</a></p>
+	</div>
+</body>
+</html>
